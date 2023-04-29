@@ -1,0 +1,756 @@
+#include<iostream>
+#include<fstream>
+#include<iomanip>
+#include<windows.h>
+
+#define cost1 20;
+#define cost2 35;
+#define costFK2D 9900;
+#define costFK2B 9300;
+#define costFK2M 9800;
+#define costTK2D 4400;
+#define costTK2B 4200;
+#define costTK2M 4350;
+
+using namespace std;
+void menu();
+
+class manageMenu{
+	
+	 private:
+	 	string admin;
+	public:
+		manageMenu(){
+			cout<<"Enter the name of admin : ";
+			cin>>admin;
+			if(admin=="Abhirup" || admin=="Admin"){
+			
+				system("CLS");	
+	            menu();
+	        }
+        	else{
+        		cout<<"Invalid Admin"<<endl;
+        		manageMenu();
+			}
+		} 
+};
+
+
+class customers{
+	public:
+		static string name;
+		string gender, address;
+		static int customerId;
+		int age;
+		long long int mobileNumber;
+		char all[999];
+	public:
+		 void getDetails(){
+			ofstream out("old-customer.txt",ios::app);
+			{
+			
+				cout<<"Customer Id= ";
+				cin>>customerId;
+				cout<<"Name= ";
+				cin>>name;
+				
+				cout<<"Gender= ";
+				cin>>gender;
+				cout<<"Age= ";
+				cin>>age;
+				cout<<"Address= ";
+				cin>>address;
+				cout<<"Mobile Number= ";
+				cin>>mobileNumber;
+			}
+			out<<"Customer Id= "<<customerId<<endl<<"Name= "<<name<<endl<<"Gender= "<<gender<<endl<<"Age= "<<age<<endl<<"Address= "<<address<<endl<<"Mobile Number= "<<mobileNumber<<endl;
+			out.close();
+			cout<<"Details saved "<<endl;
+		}
+		
+		void showDetails(){
+			ifstream in("old-customer.txt");
+			if(!in){
+				cout<<"No files saved "<<endl;
+				
+			}
+			while(!in.eof()){
+				in.getline(all,999);
+				cout<<all<<endl;
+			}
+			in.close();
+		} 
+				
+};
+
+int customers:: customerId;
+string customers:: name;
+class travel{
+	public:
+		int travelBy;
+		float travelCost;
+		bool confirmTicket;
+		int fchoice;
+		int tickets;
+		int tchoice;
+		static float totalTravelcost;
+		static string travels;
+		
+		void selectTravel(){
+		
+			cout<<"Press 1 for travel by flight. \nPress 2 for travel by train. \nPress 3 for EXIT "<<endl;
+			cout<<"Choose your travel option : ";
+			cin>>travelBy;
+			
+			if (travelBy==1){
+				system("CLS");
+				flight();
+				
+			}
+			else if(travelBy==2){
+				system("CLS");
+				train();
+				
+			}
+			else if(travelBy==3){
+				system("CLS");
+				menu();
+				
+			}
+			else{
+				cout<<"choose valid option"<<endl;
+				system("CLS");
+				selectTravel();
+				
+			}
+		}
+	void flight(){
+		
+		cout<<"Choose your destination "<<endl;
+		cout<<"Press 1 for KOLKATA to DELHI. \nPress 2 for KOLKATA to BENGALURU. \nPress 3 for KOLKATA to MUMBAI. \nPress 4 for back to Main menu "<<endl;
+		cout<<"Your choice : ";
+		cin>>fchoice;
+		if (fchoice==1){
+			system("CLS");
+			cout<<"Ticket for KOLKATA to DELHI costs "<<costFK2D;
+			cout<<"\nhow many tickets do you want ? "<<endl;
+			cin>>tickets;
+			travelCost=tickets*costFK2D;
+			cout<<"Your total cost will be "<<travelCost<<endl;
+			cout<<"Do you want to confirm your tickets ? "<<endl;
+			cout<<"press 1 to confirm. \nPress 2 for returning to the flight menu. \nPress 3 for cancel your bookings"<<endl;
+			cin>>confirmTicket;
+			if(confirmTicket==1){
+				system("CLS");
+				totalTravelcost=travelCost;
+				travels= "DESTINATION: Delhi  ;  TRAVEL BY: Flight" ;
+				cout<<"Your tickets have been booked "<<endl;
+				cout<<"Thank you for choosing our services. Hope you are enjoying it."<<endl;
+				cout<<"Have a safe and comfortable journey"<<endl;
+				
+			}
+			else if(confirmTicket==2) {
+				system("CLS");
+				flight();
+				
+			}
+			else{
+				system("CLS");
+				cout<<"Redirecting you to main menu option... "<<endl;
+				menu();
+			}
+		}
+		else if (fchoice==2){
+			system("CLS");
+			cout<<"Ticket for KOLKATA to BENGALURU costs "<<costFK2B;
+			cout<<"\nhow many tickets do you want ? "<<endl;
+			cin>>tickets;
+			travelCost=tickets*costFK2B;
+			cout<<"Your total cost will be "<<travelCost<<endl;
+			cout<<"Do you want to confirm your tickets ? "<<endl;
+			cout<<"press 1 to confirm. \nPress 2 for returning to the flight menu. \nPress 3 for cancel your bookings"<<endl;
+			cin>>confirmTicket;
+			if(confirmTicket==1){
+				totalTravelcost=travelCost;
+				travels= "DESTINATION: Bengaluru  ;  TRAVEL BY: Flight ";
+				cout<<"Your tickets have been booked "<<endl;
+				cout<<"Thank you for choosing our services. Hope you are enjoying it."<<endl;
+				cout<<"Have a safe and comfortable journey"<<endl;
+				
+			}
+			else if(confirmTicket==2) {
+				system("CLS");
+				flight();
+				
+			}
+			else{
+				system("CLS");
+				cout<<"Redirecting you to main menu option... "<<endl;
+				menu();
+			}
+		}
+		else if (fchoice==3){
+			system("CLS");
+			cout<<"Ticket for KOLKATA to MUMBAI costs "<<costFK2M;
+			cout<<"\nhow many tickets do you want ? "<<endl;
+			cin>>tickets;
+			travelCost=tickets*costFK2M;
+			cout<<"Your total cost will be "<<travelCost<<endl;
+			cout<<"Do you want to confirm your tickets ? "<<endl;
+			cout<<"press 1 to confirm. \nPress 2 for returning to the flight menu. \nPress 3 for cancel your bookings"<<endl;
+			cin>>confirmTicket;
+			if(confirmTicket==1){
+				totalTravelcost=travelCost;
+				travels = "DESTINATION: Mumbai  ;  TRAVEL BY: Flight";
+				cout<<"Your tickets have been booked "<<endl;
+				cout<<"Thank you for choosing our services. Hope you are enjoying it."<<endl;
+				cout<<"Have a safe and comfortable journey"<<endl;
+				
+			}
+			else if(confirmTicket==2) {
+				flight();
+				
+			}
+			else{
+				cout<<"Redirecting you to main menu option... "<<endl;
+				menu();
+			}
+		}
+		else {
+			system("CLS");
+			menu();
+		}
+	}
+	
+	void train(){
+		cout<<"Choose your destination "<<endl;
+		cout<<"Press 1 for KOLKATA to DELHI. \nPress 2 for KOLKATA to BENGALURU. \nPress 3 for KOLKATA to MUMBAI. \nPress 4 for the main menu. "<<endl;
+		cout<<"Your choice : ";
+		cin>>tchoice;
+		if (tchoice==1){
+			system("CLS");
+			cout<<"Ticket for KOLKATA to DELHI costs "<<costTK2D;
+			cout<<"\nhow many tickets do you want ? "<<endl;
+			cin>>tickets;
+			travelCost=tickets*costTK2D;
+			cout<<"Your total cost will be "<<travelCost<<endl;
+			cout<<"Do you want to confirm your tickets ? "<<endl;
+			cout<<"press 1 to confirm. \nPress 2 for returning to the train menu. \nPress 3 for cancel your bookings"<<endl;
+			cin>>confirmTicket;
+			if(confirmTicket==1){
+				totalTravelcost=travelCost;
+				travels= "DESTINATION: Delhi  ;  TRAVEL BY: Train ";
+				cout<<"Your tickets have been booked "<<endl;
+				cout<<"Thank you for choosing our services. Hope you are enjoying it."<<endl;
+				cout<<"Have a safe and comfortable journey"<<endl;
+				
+			}
+			else if(confirmTicket==2) {
+				train();
+				
+			}
+			else{
+				cout<<"Redirecting you to main menu option... "<<endl;
+				menu();
+			}
+		}
+		else if (tchoice==2){
+			system("CLS");
+			cout<<"Ticket for KOLKATA to BENGALURU costs "<<costTK2B;
+			cout<<"\nhow many tickets do you want ? "<<endl;
+			cin>>tickets;
+			travelCost=tickets*costTK2B;
+			cout<<"Your total cost will be "<<travelCost<<endl;
+			cout<<"Do you want to confirm your tickets ? "<<endl;
+			cout<<"press 1 to confirm. \nPress 2 for returning to the train menu. \nPress 3 for cancel your bookings"<<endl;
+			cin>>confirmTicket;
+			if(confirmTicket==1){
+				totalTravelcost=travelCost;
+				travels="DESTINATION: Delhi  ;  TRAVEL BY: Train ";
+				cout<<"Your tickets have been booked "<<endl;
+				cout<<"Thank you for choosing our services. Hope you are enjoying it."<<endl;
+				cout<<"Have a safe and comfortable journey"<<endl;
+				
+			}
+			else if(confirmTicket==2) {
+				train();
+				
+			}
+			else{
+				cout<<"Redirecting you to main menu option... "<<endl;
+				menu();
+			}
+		}
+		else if (tchoice==3){
+			system("CLS");
+			cout<<"Ticket for KOLKATA to MUMBAI costs "<<costTK2M;
+			cout<<"\nhow many tickets do you want ? "<<endl;
+			cin>>tickets;
+			travelCost=tickets*costTK2M;
+			cout<<"Your total cost will be "<<travelCost<<endl;
+			cout<<"Do you want to confirm your tickets ? "<<endl;
+			cout<<"press 1 to confirm. \nPress 2 for returning to the train menu. \nPress 3 for cancel your bookings"<<endl;
+			cin>>confirmTicket;
+			if(confirmTicket==1){
+				totalTravelcost=travelCost;
+				travels="DESTINATION: Mumbai  ;  TRAVEL BY: Train";
+				cout<<"Your tickets have been booked "<<endl;
+				cout<<"Thank you for choosing our services. Hope you are enjoying it."<<endl;
+				cout<<"Have a safe and comfortable journey"<<endl;
+				
+			}
+			else if(confirmTicket==2) {
+				system("CLS");
+				train();
+				
+			}
+			else{
+				cout<<"Redirecting you to main menu option... "<<endl;
+				system("CLS");
+				menu();
+			}
+		}
+		else{
+			system("CLS");
+			menu();
+		}
+		
+		
+	} 
+	
+};
+
+float travel::totalTravelcost;
+string travel::travels;
+
+class cab{
+	public:
+		int cabChoice;
+		float km;
+		float cabCost;
+		float totalCostCab;
+		int cabConfirmation;
+		static float totalCabcost;
+		static string cabs;
+		
+		
+		
+		void cabDetails(){
+			cout<<"Welcome to the Paul cab serices "<<endl;
+			cout<< "Thank you for using the most trusted cab services"<<endl;
+			cout<<"You can choose two types of cabs "<<endl;
+			cout<<"1. Normal cab"<<endl;
+			cout<<"2. Luxury cab "<<endl;
+			cout<<"Press 1 for normal cab and press 2 for luxury cab"<<endl;
+			cin>>cabChoice;
+			cout<<"Wait"<<endl;
+			
+			system("CLS");
+			if(cabChoice==1){
+				cout<<"Enter you kilometers: ";
+				cin>>km;
+				totalCostCab=km*cost1;
+				cout<<"Your total cost is: "<<totalCostCab;
+				cout<<"Press 1 for confirm your booking "<<endl;
+				cout<<"Press 2 for cancel your booking "<<endl;
+				cin>>cabConfirmation;
+				system("CLS");
+				if(cabConfirmation==1){
+					totalCabcost=totalCostCab;
+					cabs="CAB: Normal cab ";
+					cout<<"Your cab is booked ...Thank you ! Safe journey "<<endl;
+				}
+				else if(cabConfirmation==2){
+					
+					cout<<"redirecting you in cabs menu "<<endl;
+					cabDetails();
+					
+				}
+				
+				
+			}
+			else if(cabChoice==2){
+				cout<<"Enter you kilometers: ";
+				cin>>km;
+				totalCostCab=km*cost2;
+				cout<<"Your total cost is: "<<totalCostCab;
+				cout<<"Press 1 for confirm your booking "<<endl;
+				cout<<"Press 2 for cancel your booking "<<endl;
+				cin>>cabConfirmation;
+				system("CLS");
+				if(cabConfirmation==1){
+					totalCabcost=totalCostCab;
+					cabs="CAB: Luxury cab ";
+					cout<<"Your cab is booked ...Thank you ! Safe journey "<<endl;
+					cout<<"Go to main menu and take the receipt"<<endl;
+				}
+				
+				else{
+					cout<<"redirecting you in cabs menu "<<endl;
+					cabDetails();
+				}
+					
+			}
+				
+				
+		}
+		
+};
+float cab::totalCabcost;
+string cab::cabs;
+
+class hotel{
+	public:
+	float hotelCost;
+	int hotelchoice;
+	int chc;
+	float htlD;
+	float htlB;
+	float htlM;
+	int hotelConfirm;
+	static float totalHotelcost;
+	static string selectedHotel;
+	void htlist(){
+		
+		
+		cout<<"Where are you from? "<<endl;
+		cout<<"Press 1 for Delhi \nPress 2 for Bengaluru \nPress 3 for Mumbai : ";
+		cin>>chc;
+		system("CLS");
+		
+		if(chc==1){
+			htlDel();
+		}
+		else if(chc==2){
+			htlBen();
+		}
+		else if(chc==3){
+			htlMum();
+		}
+		else {
+			menu();
+		}
+	}
+	
+	void htlDel(){
+		int i;
+		string hotelsD[]={"Moustache","The_Surya","Sheraton"};
+		for (i=0;i<=2;i++){
+			cout<<i+1<<" . "<<hotelsD[i]<<endl;
+		}
+		
+		cout<<"Select your hotel "<<endl;
+		cin>>htlD;
+		if(htlD==1){
+			cout<<"You have choosed Moustache. your cost will be 7200"<<endl;
+			cout<<"Press 1 to confirm booking . \nPress 2 for cancel booking . "<<endl;
+			cin>>hotelConfirm;
+			if (hotelConfirm==1){
+				totalHotelcost=7200;
+				selectedHotel="Moustache";
+				cout<<"Booking confirmed . Thank you for choosing our services ."<<endl;
+				
+			}
+			else{
+				cout<<"Redirecting to hotel menu..."<<endl;
+				htlDel();
+			}
+		}
+		if(htlD==2){
+			cout<<"You have choosed The_Surya . Your cost will be 6400"<<endl;
+			cout<<"Press 1 to confirm booking . \nPress 2 for cancel booking . "<<endl;
+			cin>>hotelConfirm;
+			if (hotelConfirm==1){
+				totalHotelcost=6400;
+				selectedHotel="The_Surya";
+				cout<<"Booking confirmed . Thank you for choosing our services ."<<endl;
+				
+			}
+			else{
+				cout<<"Redirecting to hotel menu..."<<endl;
+				htlDel();
+			
+			}
+		}
+		if(htlD==3){
+				cout<<"You have choosed Sheraton . Your cost will be 5900"<<endl;
+				cout<<"Press 1 to confirm booking . \nPress 2 for cancel booking . "<<endl;
+			cin>>hotelConfirm;
+			if (hotelConfirm==1){
+				totalHotelcost=5900;
+				selectedHotel="Sheraton";
+				cout<<"Booking confirmed . Thank you for choosing our services ."<<endl;
+				
+			}
+			else{
+				cout<<"Redirecting to hotel menu..."<<endl;
+				htlDel();
+			
+			}
+		}
+		
+		system("CLS");
+	}
+	void htlBen(){
+		int i;
+		string hotelsB[]={"DoubleTree","Fairfield","Fountain"};
+		for (i=0;i<=2;i++){
+			cout<<i+1<<" . "<<hotelsB[i]<<endl;
+		}
+	
+		
+		cout<<"Select your hotel "<<endl;
+		cin>>htlB;
+		if(htlB==1){
+			cout<<"You have choosed DoubleTree. your cost will be 8500"<<endl;
+			cout<<"Press 1 to confirm booking . \nPress 2 for cancel booking . "<<endl;
+			cin>>hotelConfirm;
+			if (hotelConfirm==1){
+				totalHotelcost=8500;
+				selectedHotel="Doubletree";
+				cout<<"Booking confirmed . Thank you for choosing our services ."<<endl;
+				
+			}
+			else{
+				cout<<"Redirecting to hotel menu..."<<endl;
+				htlBen();
+			}
+		}
+		if(htlB==2){
+			cout<<"You have choosed Fairfield . Your cost will be 6400"<<endl;
+			cout<<"Press 1 to confirm booking . \nPress 2 for cancel booking . "<<endl;
+			cin>>hotelConfirm;
+			if (hotelConfirm==1){
+				totalHotelcost=6400;
+				selectedHotel="Fairfield";
+				cout<<"Booking confirmed . Thank you for choosing our services ."<<endl;
+				
+			}
+			else{
+				cout<<"Redirecting to hotel menu..."<<endl;
+				htlBen();
+			
+			}
+		system("CLS");
+		}
+		if(htlB==3){
+			cout<<"You have choosed Fountain . Your cost will be 5900"<<endl;
+			cout<<"Press 1 to confirm booking . \nPress 2 for cancel booking . "<<endl;
+			cin>>hotelConfirm;
+			if (hotelConfirm==1){
+				totalHotelcost=5900;
+				selectedHotel="Fountain";
+				cout<<"Booking confirmed . Thank you for choosing our services ."<<endl;
+				
+			}
+			else{
+				cout<<"Redirecting to hotel menu..."<<endl;
+				htlBen();
+			}
+		}
+		system("CLS");
+		
+	}
+	
+	void htlMum(){
+		int i;
+		string hotelsM[]={"Courtyard","Radisson","Kohinoor"};
+		for (i=0;i<=2;i++){
+			cout<<i+1<<" . "<<hotelsM[i]<<endl;
+		}
+	
+		
+		cout<<"Select your hotel "<<endl;
+		cin>>htlM;
+		if(htlM==1){
+			cout<<"You have choosed Courtyard. your cost will be 8500"<<endl;
+			cout<<"Press 1 to confirm booking . \nPress 2 for cancel booking . "<<endl;
+			cin>>hotelConfirm;
+			if (hotelConfirm==1){
+				totalHotelcost=8500;
+				selectedHotel="Courtyard";
+				cout<<"Booking confirmed . Thank you for choosing our services ."<<endl;
+				
+			}
+			else{
+				cout<<"Redirecting to hotel menu..."<<endl;
+				htlMum();
+			}
+		}
+		else if(htlM==2){
+			cout<<"You have choosed Radisson . Your cost will be 6400"<<endl;
+			cout<<"Press 1 to confirm booking . \nPress 2 for cancel booking . "<<endl;
+			cin>>hotelConfirm;
+			if (hotelConfirm==1){
+				totalHotelcost=6400;
+				selectedHotel="Radisson";
+				cout<<"Booking confirmed . Thank you for choosing our services ."<<endl;
+				
+			}
+			else{
+				cout<<"Redirecting to hotel menu..."<<endl;
+				htlMum();
+			
+			}
+		
+		}
+		else if(htlM==3){
+			cout<<"You have choosed Kohinoor . Your cost will be 5900"<<endl;
+			cout<<"Press 1 to confirm booking . \nPress 2 for cancel booking . "<<endl;
+			cin>>hotelConfirm;
+			if (hotelConfirm==1){
+				totalHotelcost=5900;
+				selectedHotel="Kohinoor";
+				cout<<"Booking confirmed . Thank you for choosing our services ."<<endl;
+				
+			}
+			else{
+				cout<<"Redirecting to hotel menu..."<<endl;
+				htlMum();
+			}
+		}
+		system("CLS");
+	}
+	
+	
+};
+
+float hotel::totalHotelcost;
+string hotel::selectedHotel;
+
+class charges:public customers, hotel, cab,travel{
+	public:
+		void printBill(float hotelCost, float cabCost, float travelCost, string travels, string cabs, string selectedHotel){
+			ofstream outf("receipt.txt");
+			{
+				outf<<"-----------Receipt-----------"<<endl;
+				outf<<"Customer ID : "<<customers::customerId<<endl;
+				outf<<"Name of the customer : \t"<<customers::name<<endl;
+				outf<<"Description of total cost "<<endl;
+				outf<<travels<<endl;
+				outf<<"Travel cost : \t"<<fixed<<setprecision(2)<<travelCost<<endl;
+				outf<<cabs<<endl;
+				outf<<"Cab cost : \t"<<fixed<<setprecision(2)<<cabCost<<endl;
+				outf<<"Hotel : "<<selectedHotel<<endl;
+				outf<<"Hotel cost : \t"<<fixed<<setprecision(2)<<hotelCost<<endl;
+				cout<<" Your bookings are as follows : "<<endl<<travels<<endl<<cabs<<endl<<"Hotel : "<<selectedHotel;
+				float totalCost = (hotelCost + cabCost + travelCost);
+				outf<<"total cost: \t"<<fixed<<setprecision(2)<<totalCost<<endl;
+				
+			}
+			
+			outf.close();
+			
+		}
+		void showBill(){
+			ifstream inf("receipt.txt");
+			{
+				if(!inf){
+					cout<<"File opening error !"<<endl;
+					
+				}
+				while (!(inf.eof())){
+					inf.getline(all,999);
+					cout<<all<<endl;
+				}
+			}
+			inf.close();
+		}
+	
+
+};
+
+ void menu(){
+	int menuChoice;
+	int cusChoice;
+	int gotoMenu;
+	
+	customers a1;
+	travel t1;
+	cab c1;
+	hotel h1;
+	charges c2;
+	
+     int ch = 1;
+     while(ch) {
+	cout<<"----------MAIN MENU----------"<<endl;
+	cout<<"1. User Details "<<endl;
+	cout<<"2. Travel Management "<<endl;
+	cout<<"3. Cab Management "<<endl;
+	cout<<"4. Hotel Management "<<endl;
+	cout<<"5. Bills "<<endl;
+	cout<<"6. Exit "<<endl;
+	
+	cout<<"Enter your choice : ";
+	cin>>menuChoice;
+	
+	system("CLS");
+	
+	if(menuChoice==1){
+		cout<<"1. Enter a new customer "<<endl;
+		cout<<"2. See details of old customers "<<endl;
+		cout<<"3. Back to main menu "<<endl;
+		
+		cout<<"Enter choice "<<endl;
+		cin>>cusChoice;
+		
+		if(cusChoice==1){
+			system("CLS");
+			a1.getDetails();
+		}
+		else if(cusChoice==2){
+			system("CLS");
+			a1.showDetails();
+		}
+		else if(cusChoice==3){
+			system("CLS");
+			menu();
+		}
+		else{
+			system("CLS");
+			cout<<"Invalid input "<<endl;
+			cout<<"Redirecting to main menu "<<endl;
+			cout<<"Press 1 to go to menu : "<<endl;
+			menu();
+			
+		}
+	}
+
+	
+	else if(menuChoice==2){
+		t1.selectTravel();
+	}
+	else if(menuChoice==3){
+		c1.cabDetails();
+	}
+	else if(menuChoice==4){
+		h1.htlist();
+	}
+	else if(menuChoice==5){
+		cout<<"collect your receipt "<<endl;
+		c2.printBill(h1.totalHotelcost, c1.totalCabcost, t1.totalTravelcost, t1.travels, c1.cabs, h1.selectedHotel);
+	}
+	else if(menuChoice==6){
+		cout<<"Thank you. ";
+		return ;
+	}
+	else{
+		system("CLS");
+		menu();
+	}
+
+    cout<<"\nDo you want to continue "<<endl;
+    cin>>ch;
+    system("CLS");
+}
+
+}
+
+
+int main(){
+	
+	manageMenu startObj;
+
+	//startObj.menu();
+	return 0;
+}
